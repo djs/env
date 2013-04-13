@@ -60,3 +60,5 @@ sudo::conf { 'dan':
   priority => 10,
   content => "dan ALL=(ALL) NOPASSWD: ALL\n",
 }
+
+class { 'envy15': }
