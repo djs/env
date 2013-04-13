@@ -9,6 +9,7 @@ package { 'vim-gnome':
 git::repo{'vimconfig':
  owner => 'dan',
  group => 'dan',
+ update => true,
  path   => '/home/dan/vimconfig',
  source => 'https://github.com/djs/vimconfig.git'
 }
@@ -48,6 +49,7 @@ file { '/home/dan/.vim/bundle':
 git::repo{ 'vundle':
  owner => 'dan',
  group => 'dan',
+ update => true,
  path => '/home/dan/.vim/bundle/vundle',
  source => 'https://github.com/gmarik/vundle.git',
  require => File['/home/dan/.vim'],
