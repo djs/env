@@ -6,4 +6,4 @@
 	url = https://github.com/puppetlabs/puppetlabs-stdlib
 [submodule "modules/sudo"]
 	path = modules/sudo
-	url = https://github.com/saz/puppet-sudo.git
+	url = https://github.com/djs/puppet-sudo.git
