@@ -62,3 +62,54 @@ sudo::conf { 'dan':
 }
 
 class { 'envy15': }
+
+file { '/home/dan/.fonts':
+  owner => 'dan',
+  group => 'dan',
+  mode => '644',
+  ensure => directory,
+}
+
+git::repo{ 'powerline':
+ owner => 'dan',
+ group => 'dan',
+ branch => 'develop',
+ update => true,
+ path => '/home/dan/powerline',
+ source => 'https://github.com/Lokaltog/powerline.git',
+}
+
+file { 'PowerlineSymbols.otf':
+  path => '/home/dan/.fonts/PowerlineSymbols.otf',
+  owner => 'dan',
+  group => 'dan',
+  mode => '644',
+  ensure => file,
+  source => '/home/dan/powerline/font/PowerlineSymbols.otf',
+  require => Git::Repo['powerline'],
+}
+
+file { '/home/dan/.config/fontconfig/conf.d':
+  path => '/home/dan/.config/fontconfig/conf.d',
+  owner => 'dan',
+  group => 'dan',
+  mode => '644',
+  ensure => directory,
+}
+
+file { '10-powerline-symbols.conf':
+  path =>'/home/dan/.config/fontconfig/conf.d/10-powerline-symbols.conf',
+  owner => 'dan',
+  group => 'dan',
+  mode => '644',
+  ensure => file,
+  source => '/home/dan/powerline/font/10-powerline-symbols.conf',
+  require => Git::Repo['powerline'],
+}
+
+exec { '/usr/bin/fc-cache -v -f':
+  subscribe => [ File['PowerlineSymbols.otf'],
+                 File['10-powerline-symbols.conf'],
+  ],
+  refreshonly => true,
+}
